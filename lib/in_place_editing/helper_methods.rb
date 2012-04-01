@@ -62,6 +62,9 @@ module InPlaceMacrosHelper
     js_options['textBetweenControls'] = %('#{options[:text_between_controls]}') if options[:text_between_controls]
     js_options['onComplete'] = %('#{options[:on_complete]}') if options[:on_complete]
     js_options['onFailure'] = %('#{options[:on_failure]}') if options[:on_failure]
+    for callback_name in [:onEnterEditMode, :onFormCustomization, :onLeaveEditMode, :onEnterHover, :onLeaveHover]
+      js_options[callback_name.to_s] = options[callback_name] if options[callback_name]
+    end
     function << (', ' + options_for_javascript(js_options)) unless js_options.empty?
     
     function << ')'
